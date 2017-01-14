@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.andro.listndetails.R;
 import com.andro.listndetails.applicationbase.BaseFragment;
+import com.andro.listndetails.models.Result;
 
 /**
  * Created by andro on 1/14/2017.
@@ -25,31 +26,33 @@ public class MainScreenFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.main_fragment_layout, container, false);
 
         MainScreenView mainScreenView = new MainScreenView(view.findViewById(R.id.listRootLinearLayout));
-        mMainScreenPresenter = new MainScreenPresenter(mainScreenView);
-//        mMainScreenPresenter.setMainScreenPresenterInterface(mainScreenPresenterInterface);
+        mMainScreenPresenter = new MainScreenPresenter(mainScreenView, savedInstanceState);
+        mMainScreenPresenter.setMainScreenPresenterInterface(mainScreenPresenterInterface);
 
         return view;
     }
 
-//    private MainScreenPresenter.MainScreenPresenterInterface
-//            mainScreenPresenterInterface = new MainScreenPresenter.MainScreenPresenterInterface() {
-//        @Override
-//        public void showDetails(Result result) {
-//            Intent intent = DetailsActivity.getDetailsActivityIntent(MainActivity.this, result);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        mMainScreenPresenter.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mMainScreenPresenter.onRestoreInstanceState(savedInstanceState);
+    }
+
+    private MainScreenPresenter.MainScreenPresenterInterface
+            mainScreenPresenterInterface = new MainScreenPresenter.MainScreenPresenterInterface() {
+        @Override
+        public void showDetails(Result result) {
+//            Intent intent = DetailsActivity.getDetailsActivityIntent(getActivity(), result);
 //            startActivity(intent);
-//        }
-//
-//        @Override
-//        public void showDatePicker() {
-//            final Calendar c = Calendar.getInstance();
-//            int mYear = c.get(Calendar.YEAR);
-//            int mMonth = c.get(Calendar.MONTH);
-//            int mDay = c.get(Calendar.DAY_OF_MONTH);
-//
-//            DatePickerDialog datePickerDialog = new DatePickerDialog(
-//                    MainActivity.this, onDateSetListener, mYear, mMonth, mDay);
-//
-//            datePickerDialog.show();
-//        }
-//    };
+        }
+
+    };
 }
