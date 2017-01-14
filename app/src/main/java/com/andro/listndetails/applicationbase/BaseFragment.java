@@ -1,6 +1,6 @@
 package com.andro.listndetails.applicationbase;
 
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 
 /**
  * Created by andro on 1/14/2017.
