@@ -13,7 +13,6 @@ import retrofit2.Response;
  */
 
 public class MainScreenPresenter {
-    public static final String OUTPUT_FORMAT_YYYY_MM_DD = "yyyy-MM-dd";
     private MainScreenView mMainScreenView;
 
     private ApiManager mApiManager;
