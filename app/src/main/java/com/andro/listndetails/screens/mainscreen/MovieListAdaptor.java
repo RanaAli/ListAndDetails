@@ -54,6 +54,11 @@ public class MovieListAdaptor extends RecyclerView.Adapter<MovieListItem>{
 
     public void setData(List<Result> results) {
         mResults = results;
+        notifyDataSetChanged();
+    }
+
+    public List<Result> getData(){
+        return mResults;
     }
 
     public void addData(List<Result> results) {

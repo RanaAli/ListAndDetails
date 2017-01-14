@@ -1,8 +1,15 @@
 package com.andro.listndetails.screens.mainscreen;
 
+import android.os.Bundle;
+
 import com.andro.listndetails.api.ApiManager;
 import com.andro.listndetails.models.Discover;
 import com.andro.listndetails.models.Result;
+
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -13,17 +20,22 @@ import retrofit2.Response;
  */
 
 public class MainScreenPresenter {
+    public static final String ADAPTOR_DATA = "adaptorData";
+    public static final String PAGE_NUMBER = "pageNumber";
     private MainScreenView mMainScreenView;
 
     private ApiManager mApiManager;
     private MovieListAdaptor mMovieListAdapter;
+    private List<Result> mResults;
 
     private MainScreenPresenterInterface mMainScreenPresenterInterface;
 
     private int mPage = 1;
 
-    public MainScreenPresenter(MainScreenView mMainScreenView) {
+    public MainScreenPresenter(MainScreenView mMainScreenView, Bundle savedInstanceState) {
         this.mMainScreenView = mMainScreenView;
+
+        mResults = new ArrayList<>();
 
         mMainScreenView.setMainScreenViewInterface(mainScreenViewInterface);
 
@@ -32,16 +44,14 @@ public class MainScreenPresenter {
         mMainScreenView.populateList(mMovieListAdapter);
 
         mApiManager = new ApiManager(mMainScreenView.getContext());
-        mMainScreenView.showProgress();
-        mApiManager.discover(mPage, discoverCallback);
-
     }
 
     private Callback discoverCallback = new Callback<Discover>() {
         @Override
         public void onResponse(Call<Discover> call, Response<Discover> response) {
 
-            mMovieListAdapter.addData(response.body().getResults());
+            mResults.addAll(response.body().getResults());
+            mMovieListAdapter.setData(mResults);
             mMainScreenView.dismissProgress();
         }
 
@@ -72,6 +82,27 @@ public class MainScreenPresenter {
             mApiManager.discover(mPage, discoverCallback);
         }
     };
+
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        if (mMovieListAdapter != null) {
+            List<Result> results = mMovieListAdapter.getData();
+
+            savedInstanceState.putParcelable(ADAPTOR_DATA, Parcels.wrap(results));
+            savedInstanceState.putInt(PAGE_NUMBER, mPage);
+        }
+    }
+
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        if (savedInstanceState != null && savedInstanceState.getParcelable(ADAPTOR_DATA) != null) {
+            mResults = Parcels.unwrap(savedInstanceState.getParcelable(ADAPTOR_DATA));
+            mMovieListAdapter.setData(mResults);
+
+            mPage = savedInstanceState.getInt(PAGE_NUMBER);
+        }else{
+            mMainScreenView.showProgress();
+            mApiManager.discover(mPage, discoverCallback);
+        }
+    }
 
     public void setMainScreenPresenterInterface(MainScreenPresenterInterface mainScreenPresenterInterface) {
         this.mMainScreenPresenterInterface = mainScreenPresenterInterface;
