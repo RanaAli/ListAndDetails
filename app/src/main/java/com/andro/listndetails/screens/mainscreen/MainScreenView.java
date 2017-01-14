@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.andro.listndetails.R;
+import com.andro.listndetails.customscroller.EndlessRecyclerViewScrollListener;
 
 /**
  * Created by andro on 1/14/2017.
@@ -38,14 +39,14 @@ public class MainScreenView {
         mLinearLayoutManager = new LinearLayoutManager(mView.getContext());
 
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-//        mRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(mLinearLayoutManager) {
-//            @Override
-//            public void onLoadMore(int page, int totalItemsCount) {
-//                if (mMainScreenViewInterface != null) {
-//                    mMainScreenViewInterface.loadMore(page, totalItemsCount);
-//                }
-//            }
-//        });
+        mRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(mLinearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                if (mMainScreenViewInterface != null) {
+                    mMainScreenViewInterface.loadMore(page, totalItemsCount);
+                }
+            }
+        });
     }
 
     public Context getContext() {
