@@ -13,6 +13,8 @@ import com.andro.listndetails.R;
 
 public class BaseActivity extends AppCompatActivity {
 
+    public static final int GENERIC_ACTIVITY_FRAME_LAYOUT = R.id.genericActivityFrameLayout;
+
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
@@ -25,7 +27,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void addFragment(BaseFragment fragment, Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.add(R.id.genericActivityFrameLayout, fragment);
+            ft.add(GENERIC_ACTIVITY_FRAME_LAYOUT, fragment);
             ft.commit();
         }
     }
