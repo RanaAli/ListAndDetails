@@ -9,6 +9,9 @@ import com.andro.listndetails.R;
 import com.andro.listndetails.models.Result;
 import com.andro.listndetails.utils.ImageUtils;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by andro on 1/14/2017.
  */
@@ -17,9 +20,14 @@ public class MovieListItem extends RecyclerView.ViewHolder{
 
     public static final String POSTER_SIZE_W_185 = "w185";
 
-    private TextView mTitleTextView;
-    private TextView mDateTextView;
-    private ImageView mImageView;
+    @BindView(R.id.listItemViewTitleTextView)
+    protected TextView mTitleTextView;
+
+    @BindView(R.id.listItemViewDateTextView)
+    protected TextView mDateTextView;
+
+    @BindView(R.id.listItemViewImageView)
+    protected ImageView mImageView;
 
     private Result mResult;
 
@@ -28,10 +36,7 @@ public class MovieListItem extends RecyclerView.ViewHolder{
     public MovieListItem(View itemView) {
         super(itemView);
 
-        mTitleTextView = (TextView) itemView.findViewById(R.id.listItemViewTitleTextView);
-        mDateTextView = (TextView) itemView.findViewById(R.id.listItemViewDateTextView);
-        mImageView = (ImageView) itemView.findViewById(R.id.listItemViewImageView);
-
+        ButterKnife.bind(this, itemView);
     }
 
     public void populate(Result result) {
