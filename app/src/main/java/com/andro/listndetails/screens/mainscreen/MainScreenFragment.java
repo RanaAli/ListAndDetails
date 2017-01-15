@@ -26,7 +26,7 @@ public class MainScreenFragment extends BaseFragment {
 
         View view = inflater.inflate(R.layout.main_fragment_layout, container, false);
 
-        MainScreenView mainScreenView = new MainScreenView(view.findViewById(R.id.listRootLinearLayout));
+        MainScreenView mainScreenView = new MainScreenView(view);
         mMainScreenPresenter = new MainScreenPresenter(mainScreenView);
         mMainScreenPresenter.setMainScreenPresenterInterface(mainScreenPresenterInterface);
 

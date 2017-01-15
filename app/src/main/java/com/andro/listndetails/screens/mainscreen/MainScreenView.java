@@ -9,6 +9,9 @@ import android.widget.RelativeLayout;
 import com.andro.listndetails.R;
 import com.andro.listndetails.customscroller.EndlessRecyclerViewScrollListener;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by andro on 1/14/2017.
  */
@@ -16,8 +19,11 @@ import com.andro.listndetails.customscroller.EndlessRecyclerViewScrollListener;
 public class MainScreenView {
     private View mView;
 
-    private RecyclerView mRecyclerView;
-    private RelativeLayout mProgressLayout;
+    @BindView(R.id.movieListRecycleView)
+    protected RecyclerView mRecyclerView;
+
+    @BindView(R.id.movieProgressViewRelativeLayout)
+    protected RelativeLayout mProgressLayout;
 
     private LinearLayoutManager mLinearLayoutManager;
 
@@ -26,13 +32,9 @@ public class MainScreenView {
     public MainScreenView(View mView) {
         this.mView = mView;
 
-        bindView();
-        setupView();
-    }
+        ButterKnife.bind(this, mView);
 
-    private void bindView() {
-        mRecyclerView = (RecyclerView) mView.findViewById(R.id.movieListRecycleView);
-        mProgressLayout = (RelativeLayout) mView.findViewById(R.id.movieProgressViewRelativeLayout);
+        setupView();
     }
 
     private void setupView() {
