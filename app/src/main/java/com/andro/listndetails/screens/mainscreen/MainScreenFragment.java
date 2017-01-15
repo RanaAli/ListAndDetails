@@ -1,5 +1,7 @@
 package com.andro.listndetails.screens.mainscreen;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.andro.listndetails.R;
 import com.andro.listndetails.applicationbase.BaseFragment;
-import com.andro.listndetails.models.Result;
 
 /**
  * Created by andro on 1/14/2017.
@@ -26,7 +27,7 @@ public class MainScreenFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.main_fragment_layout, container, false);
 
         MainScreenView mainScreenView = new MainScreenView(view.findViewById(R.id.listRootLinearLayout));
-        mMainScreenPresenter = new MainScreenPresenter(mainScreenView, savedInstanceState);
+        mMainScreenPresenter = new MainScreenPresenter(mainScreenView);
         mMainScreenPresenter.setMainScreenPresenterInterface(mainScreenPresenterInterface);
 
         return view;
@@ -49,9 +50,10 @@ public class MainScreenFragment extends BaseFragment {
     private MainScreenPresenter.MainScreenPresenterInterface
             mainScreenPresenterInterface = new MainScreenPresenter.MainScreenPresenterInterface() {
         @Override
-        public void showDetails(Result result) {
-//            Intent intent = DetailsActivity.getDetailsActivityIntent(getActivity(), result);
-//            startActivity(intent);
+        public void showDetails(String url) {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
         }
 
     };

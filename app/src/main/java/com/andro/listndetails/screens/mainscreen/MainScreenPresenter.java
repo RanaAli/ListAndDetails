@@ -8,6 +8,8 @@ import com.andro.listndetails.models.Result;
 
 import org.parceler.Parcels;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,9 @@ import retrofit2.Response;
 public class MainScreenPresenter {
     public static final String ADAPTOR_DATA = "adaptorData";
     public static final String PAGE_NUMBER = "pageNumber";
+    public static final String HTTP_WWW_GOOGLE_COM_Q = "http://www.google.com/#q=";
+    public static final String UTF_8 = "utf-8";
+
     private MainScreenView mMainScreenView;
 
     private ApiManager mApiManager;
@@ -32,7 +37,7 @@ public class MainScreenPresenter {
 
     private int mPage = 1;
 
-    public MainScreenPresenter(MainScreenView mMainScreenView, Bundle savedInstanceState) {
+    public MainScreenPresenter(MainScreenView mMainScreenView) {
         this.mMainScreenView = mMainScreenView;
 
         mResults = new ArrayList<>();
@@ -66,7 +71,12 @@ public class MainScreenPresenter {
         @Override
         public void onItemClicked(Result result) {
             if (mMainScreenPresenterInterface != null) {
-                mMainScreenPresenterInterface.showDetails(result);
+                try {
+                    mMainScreenPresenterInterface.showDetails(HTTP_WWW_GOOGLE_COM_Q +
+                            URLEncoder.encode(result.getTitle(), UTF_8));
+                } catch (UnsupportedEncodingException e) {
+                    mMainScreenPresenterInterface.showDetails(HTTP_WWW_GOOGLE_COM_Q);
+                }
             }
         }
     };
@@ -98,7 +108,7 @@ public class MainScreenPresenter {
             mMovieListAdapter.setData(mResults);
 
             mPage = savedInstanceState.getInt(PAGE_NUMBER);
-        }else{
+        } else {
             mMainScreenView.showProgress();
             mApiManager.discover(mPage, discoverCallback);
         }
@@ -109,6 +119,6 @@ public class MainScreenPresenter {
     }
 
     public interface MainScreenPresenterInterface {
-        void showDetails(Result result);
+        void showDetails(String url);
     }
 }
