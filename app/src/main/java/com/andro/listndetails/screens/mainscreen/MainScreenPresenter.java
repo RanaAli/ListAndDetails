@@ -30,6 +30,7 @@ public class MainScreenPresenter {
     private MainScreenView mMainScreenView;
 
     private ApiManager mApiManager;
+
     private MovieListAdaptor mMovieListAdapter;
     private List<Result> mResults;
 
@@ -37,10 +38,12 @@ public class MainScreenPresenter {
 
     private int mPage = 1;
 
-    public MainScreenPresenter(MainScreenView mMainScreenView) {
+    public MainScreenPresenter(MainScreenView mMainScreenView, ApiManager apiManager) {
         this.mMainScreenView = mMainScreenView;
 
         mResults = new ArrayList<>();
+
+        mApiManager = apiManager;
 
         mMainScreenView.setMainScreenViewInterface(mainScreenViewInterface);
 
@@ -48,7 +51,6 @@ public class MainScreenPresenter {
         mMovieListAdapter.setMovieListAdapterInterface(mMovieListAdapterInterface);
         mMainScreenView.populateList(mMovieListAdapter);
 
-        mApiManager = new ApiManager(mMainScreenView.getContext());
     }
 
     private Callback discoverCallback = new Callback<Discover>() {
