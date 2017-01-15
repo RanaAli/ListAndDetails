@@ -14,6 +14,7 @@ import java.net.URLDecoder;
 public class MainActivity extends BaseActivity {
 
     public static final String DEEPLINK_MESSAGE_KEY = "message";
+    public static final String UTF_8 = "utf-8";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class MainActivity extends BaseActivity {
 
             try {
                 Toast.makeText(getApplicationContext(),
-                        URLDecoder.decode(parameter, "utf-8"), Toast.LENGTH_LONG).show();
+                        URLDecoder.decode(parameter, UTF_8), Toast.LENGTH_LONG).show();
             } catch (UnsupportedEncodingException e) {
                 Toast.makeText(getApplicationContext(), parameter, Toast.LENGTH_LONG).show();
             }
