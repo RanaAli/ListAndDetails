@@ -6,6 +6,8 @@ import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.andro.listndetails.R;
+import com.andro.listndetails.injection.ListNDetailsApplication;
+import com.andro.listndetails.injection.NetApiComponent;
 
 /**
  * Created by andro on 1/14/2017.
@@ -20,7 +22,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState, persistentState);
     }
 
-    protected void setcontentView(){
+    protected void setContentView(){
         setContentView(R.layout.generic_activity_layout);
     }
 
@@ -32,5 +34,11 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    ListNDetailsApplication getListNDetailsApplication(){
+        return (ListNDetailsApplication) getApplicationContext();
+    }
 
+    public NetApiComponent getNetComponent(){
+        return getListNDetailsApplication().getNetComponent();
+    }
 }

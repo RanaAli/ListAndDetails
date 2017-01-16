@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andro.listndetails.R;
+import com.andro.listndetails.api.ApiManager;
 import com.andro.listndetails.applicationbase.BaseFragment;
+
+import javax.inject.Inject;
 
 /**
  * Created by andro on 1/14/2017.
@@ -19,6 +22,9 @@ public class MainScreenFragment extends BaseFragment {
 
     private MainScreenPresenter mMainScreenPresenter;
 
+    @Inject
+    protected ApiManager mApiManager;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -26,8 +32,10 @@ public class MainScreenFragment extends BaseFragment {
 
         View view = inflater.inflate(R.layout.main_fragment_layout, container, false);
 
+        getListNDetailsApplication().getNetComponent().inject(this);
+
         MainScreenView mainScreenView = new MainScreenView(view);
-        mMainScreenPresenter = new MainScreenPresenter(mainScreenView);
+        mMainScreenPresenter = new MainScreenPresenter(mainScreenView, mApiManager);
         mMainScreenPresenter.setMainScreenPresenterInterface(mainScreenPresenterInterface);
 
         return view;
