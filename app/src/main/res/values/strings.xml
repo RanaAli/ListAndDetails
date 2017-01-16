@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">ProductListNDetails</string>
+    <string name="api_key">4a703e0d0c5d3fea538ba225463200d3</string>
+    <string name="baseURL">http://api.themoviedb.org/3/</string>
+    <string name="imageURL">http://image.tmdb.org/t/p/</string>
+</resources>
