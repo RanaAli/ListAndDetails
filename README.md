@@ -6,12 +6,13 @@ Is also deeplinks and displays the query String in a TOAST. e.g. `namshi://?mess
 This is to demonstrate the use of
 
 * MVP
+* Dependency injection
 * Recycling of the view in a list and viewholder pattern
-* Handling configuration changes while keeping the data persistent
-* Designing views such that they scale on a bigger screen
-* Limitless Scroll.
+* Handling configuration changes while keeping the data persistent e.g. screen rotation
+* Designing views such that they scale on a bigger screens
+* Limitless Scroll
 
-usage of libraries such as:
+Usage of libraries such as:
 
 * Retrofit
 * Dagger 2
