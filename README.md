@@ -1,7 +1,7 @@
 # ListAndDetails
 
 The application shows list of movies and once clicked on any item, it is searched on google with a title.
-Is also deeplinks and displays the query String in a TOAST. e.g. `namshi://?message=<string>`
+Is also deeplinks and displays the query String in a TOAST. e.g. `smthing://?message=<string>`
 
 This is to demonstrate the use of
 
